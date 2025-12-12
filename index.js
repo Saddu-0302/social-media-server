@@ -2,16 +2,15 @@ const mongoose = require("mongoose")
 const express = require("express")
 const cors = require("cors")
 require("dotenv").config()
+const helmet = require("helmet")
 
 const authApi = require("./routes/auth.route")
 
 const app = express()
-
+app.use(helmet())
 app.use(express.json())
-
-
+app.use(express.urlencoded({extended:true}))
 app.use("/api/auth",authApi)
-app.use("/api/product",productApi)
 
 app.use((req,res)=>{
     res.status(404).json({message:"Resource Not Found"})
