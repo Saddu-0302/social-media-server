@@ -1,6 +1,6 @@
-const path = require('path');
-const fs = require('fs/promises');
-const fsSync = require('fs');
+const path = require('node:path');
+const fs = require('node:fs/promises');
+const fsSync = require('node:fs');
 const { v4: uuidv4 } = require('uuid');
 const ffmpeg = require('fluent-ffmpeg');
 const ffmpegPath = require('ffmpeg-static');
