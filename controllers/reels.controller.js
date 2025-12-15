@@ -189,7 +189,7 @@ exports.createReel = asyncHandler(async (req, res) => {
 
 exports.getAllReels = asyncHandler(async(req,res)=>{
 
-    let page = parseInt(req.query.page) || 1;
+    let page = Number.parseInt(req.query.page) || 1;
     const limit = 5; // number of reels per page
     const skip = (page - 1) * limit;
 

@@ -19,7 +19,7 @@ const fileFilter = (req, file, cb) => {
   const { fieldname, mimetype } = file;
   if (fieldname === 'media') {
     // accept video/mp4, webm; images jpeg/png
-    if (/^video\/|^image\//.test(mimetype)) return cb(null, true);
+    if (mimtype.startsWith('audio/')) return cb(null, true);
     return cb(new Error('Media must be an image or video.'));
   }
   if (fieldname === 'song') {
