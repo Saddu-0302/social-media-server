@@ -1,5 +1,6 @@
 const multer = require("multer");
 const path = require("node:path");
+const crypto = require("node:crypto");
 const fs = require("node:fs");
 
 const tempDir = path.join(__dirname,"..",'middleware','temp')
@@ -11,7 +12,7 @@ const storage = multer.diskStorage({
     },
     filename: function (req,file,cb){
         const ext = path.extname(file.originalname)
-        const name = `${Date.now()}-${Math.random().toString(36).slice(2,8)}${ext}`;
+        const name = `${Date.now()}-${crypto.randomUUID()}${ext}`;
         cb(null,name)
     }
 })
