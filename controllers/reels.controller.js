@@ -104,13 +104,13 @@ async function safeUnlink(filePath) {
 
 exports.createReel = asyncHandler(async (req, res) => {
   // expected fields: media (file), song (file), caption (optional)
-  if (!req.files || !req.files.media) {
+  if (!req.files?.media) {
     return res.status(400).json({ message: 'media is required.' });
   }
   const songFile = req.files.song ? req.files.song[0] : null;
   const mediaFile = req.files.media[0];
   const caption = req.body.caption || '';
-  const userId = req.user && req.user._id ? req.user._id : null; // adapt to your auth
+  const userId = req.user?._id ? req.user._id : null; // adapt to your auth
 
   if (!userId) return res.status(401).json({ message: 'Unauthorized' });
 
@@ -129,13 +129,12 @@ exports.createReel = asyncHandler(async (req, res) => {
 
     if (isImage) {
       // make 15s video from image
-      await createVideoFromImage(mediaPath, tmpVideo, 15);
-      finalDuration = 15;
+      await createVideoFromImage(mediaPath, tmpVideo, finalDuration);
     } else {
       // media is a video: check duration and trim if necessary
       const duration = await getMediaDuration(mediaPath);
       // use min(duration, 15)
-      finalDuration = Math.min(Math.floor(duration || 0), 15) || 1; // fallback 1s
+      finalDuration = Math.min(Math.floor(duration || 0), finalDuration) || 1; // fallback 1s
       // trim video to finalDuration and remove audio
       await trimVideo(mediaPath, tmpVideo, finalDuration);
     }
