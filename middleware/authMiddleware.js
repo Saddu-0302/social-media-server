@@ -14,7 +14,8 @@ const protect = (req, res, next) => {
     req.user = { _id: decoded.id };
     next();
   } catch (error) {
-    return res.status(401).json({ message: "Invalid or expired token" });
+    console.error(`JWT verification failed: ${error.message}`,error);
+    return res.status(401).json({message:"Invalid or Expired Token"})
   }
 };
 

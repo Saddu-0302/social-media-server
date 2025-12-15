@@ -1,6 +1,6 @@
 const multer = require("multer");
-const path = require("path");
-const fs = require("fs");
+const path = require("node:path");
+const fs = require("node:fs");
 
 const tempDir = path.join(__dirname,"..",'middleware','temp')
 fs.mkdirSync(tempDir,{recursive:true})
