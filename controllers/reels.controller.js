@@ -98,9 +98,7 @@ async function muxAudioVideo(videoPath, audioPath, outPath) {
 // cleanup helper
 async function safeUnlink(filePath) {
   try { await fs.unlink(filePath); } catch (e) { 
-    if (err.code !== "ENOENT"){
-        console.error("Failed to delete file:", filePath, err.message);
-    }
+    console.log(`Exception while doing something: ${e}`)
   }
 }
 
