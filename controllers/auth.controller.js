@@ -1,6 +1,7 @@
 const bcrypt = require("bcrypt")
 const asyncHandler = require("express-async-handler")
 const user = require("../models/auth")
+const {generateToken} = require("../middleware/generateTokens")
 
 exports.getAllUser = asyncHandler(async(req,res)=>{
     const result = await user.find()
@@ -39,6 +40,7 @@ exports.loginUser = asyncHandler(async(req,res)=>{
     if (!found || !verify){
         return res.status(401).json({message:"Invalid Credential"})
     }
+    const {accessToken,refreshToken} = generateToken(found._id)
 
     const userData = {
         _id : found._id,
@@ -48,6 +50,8 @@ exports.loginUser = asyncHandler(async(req,res)=>{
 
     res.status(200).json({
         message:"Login Successfull",
+        accessToken,
+        refreshToken,
         userData
     })
 })
